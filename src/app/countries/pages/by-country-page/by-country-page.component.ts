@@ -1,10 +1,20 @@
 import { Component } from '@angular/core';
+import { SearchBoxComponent } from '../../../shared/components/search-box/search-box.component';
+import { CountriesService } from '../../services/countries.service';
+import { Country } from '../../interfaces/country';
 
 @Component({
   selector: 'app-by-country-page',
   templateUrl: './by-country-page.component.html',
-  styles: ``
+  styles: ``,
 })
 export class ByCountryPageComponent {
+  public countries: Country[] = [];
+  constructor(private countriesService: CountriesService) {}
 
+  searchByCountry(term: string) {
+    this.countriesService.searchCountry(term).subscribe((countries) => {
+      this.countries = countries;
+    });
+  }
 }
